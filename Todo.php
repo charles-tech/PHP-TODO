@@ -5,6 +5,7 @@ class Todo extends Conn{
 
     public int $id;
     public string $status;
+    public string $data;
 
 
 
@@ -22,10 +23,11 @@ class Todo extends Conn{
 
     public function listStatus():array
     {
+        
         $this->conn = $this->connectDb();
-        $query_todo= "SELECT `id`, `data`, `tarefa`, `created`, `status` FROM `tarefas` WHERE status =:status" ;
+        $query_todo= "SELECT `id`, `data`, `tarefa`, `created`, `status` FROM `tarefas` WHERE data LIKE = data='%:data%" ;
         $result_todo = $this->conn->prepare($query_todo);
-        $result_todo->bindParam(':status', $this->status);
+        $result_todo->bindParam(':data', $this->data);
         $result_todo->execute();
         $value = $result_todo->fetch();
         return $value;
@@ -74,7 +76,6 @@ class Todo extends Conn{
 
     public function edit() : bool
     {
-        var_dump($this->formData);
         $this->conn = $this->connectDb();
         $query_todo = "UPDATE tarefas SET data=:data, status=:status, tarefa=:tarefa 
                     WHERE id=:id";
