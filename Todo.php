@@ -21,16 +21,16 @@ class Todo extends Conn{
     }
 
 
-    public function listStatus():array
+    public function listStatus()
     {
         
         $this->conn = $this->connectDb();
-        $query_todo= "SELECT `id`, `data`, `tarefa`, `created`, `status` FROM `tarefas` WHERE data LIKE = data='%:data%" ;
+        $query_todo = "SELECT id, data, tarefa, status FROM tarefas  ORDER BY id DESC LIMIT 40";
         $result_todo = $this->conn->prepare($query_todo);
-        $result_todo->bindParam(':data', $this->data);
         $result_todo->execute();
-        $value = $result_todo->fetch();
-        return $value;
+        $retorno = $result_todo->fetchAll();
+        //var_dump($retorno);
+        return $retorno;
     }
 
 
@@ -66,6 +66,20 @@ class Todo extends Conn{
         return $value;
     }
 
+
+    public function getbyID($id)
+    {
+        $this->conn = $this->connectDb();
+        $query_todo= "SELECT * 
+                        FROM tarefas
+                        WHERE id =:id";
+                        
+        $result_todo = $this->conn->prepare($query_todo);
+        $result_todo->bindParam(':id',$id);
+        $result_todo->execute();
+        $value = $result_todo->fetch();
+        return $value;
+    }
 
 
 

@@ -10,6 +10,8 @@ abstract class Conn
     public int $port = 3306;
     public object $connect; 
 
+    
+
     public function connectDb()
     {
         try{

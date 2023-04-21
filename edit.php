@@ -49,10 +49,7 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 
                     </ul>
-                    <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -75,6 +72,8 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
     //Receber os dados do formulario
     $formData = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+
+    
 
     //Verificar se o usuario clicou no botao
     if (!empty($formData['SendTodo'])) {
@@ -110,7 +109,16 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
     <div class="container">
         <h1>Editar o To do</h1><br>
 
+        <?php
 
+        $dados = new Todo();
+        $edit = filter_input(INPUT_GET,'id',FILTER_DEFAULT);
+        $registro = $dados->getbyID($edit);
+        extract($registro);
+        //var_dump($registro);
+        
+
+        ?>
         <form name="EditTodo" method="POST" action="">
             <input type="hidden" name="id" value="<?php echo $id; ?>" />
 
@@ -118,7 +126,7 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
 
 
             <label>Data: </label>
-            <input type="datetime-local" name="data" required /><br><br>
+            <input type="datetime-local" value="<?= $data?>" name="data" required /><br><br>
 
             <?php
         $tarefa = "";
@@ -128,7 +136,8 @@ $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
         ?>
 
             <label>Tarefa </label>
-            <input type="text" name="tarefa" placeholder="Escreca a sua Tarefa" required /><br><br>
+            <input type="text" value="<?= $tarefa?>" name="tarefa" placeholder="Escreca a sua Tarefa"
+                required /><br><br>
 
 
 

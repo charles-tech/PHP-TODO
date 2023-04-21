@@ -1,5 +1,6 @@
 <?php
 session_start();
+ini_set("display_errors", 1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,10 +54,7 @@ session_start();
                     </ul>
 
 
-                    <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -72,26 +70,21 @@ session_start();
     <br><br>
 
 
-    <?php
 
-if (isset($_SESSION['msg'])) {
-    echo $_SESSION['msg'];
-    unset($_SESSION['msg']);
-}
-       
+    <?php
     require './Conn.php';
     require './Todo.php';
 
-    $listtodos = new Todo();
-    $result_todos = $listtodos->list();
+    $listarstatus = new Todo();
+    $result_status =$listarstatus->listStatus();
 
-  
+   
 
 
     ?>
 
     <div class="container">
-        <h1>PAGINA EM CONSTRUÇÃO</h1>
+        <h1>Listar To-do</h1><BR></BR>
 
 
         <table class="table">
@@ -108,39 +101,42 @@ if (isset($_SESSION['msg'])) {
             </thead>
             <tbody class="table-group-divider">
 
+
                 <?php
-                     foreach($result_todos as $row_todo){
-                        extract($row_todo);
-                       // var_dump($row_todo);
-                        $dataBr = "Data: " .date('d/m/Y H:i:s', strtotime($data)) . " <br>";
 
-                        
-                        if($status == 'Aguardando'){
-                            echo "
-                            <tr>
-                            <th scope='row'>{$id}</th>
-                            <td>{$dataBr}</td>
-                            <td>{$tarefa}</td>
-                            <td>{$status}</td>
-                            <td>
-                            <a href='view.php?id=$id' type='button' class='btn btn-outline-primary'>Visualizar</a>
-                            <a href='edit.php?id=$id' type='button' class='btn btn-outline-success'>Editar</a>
-                            <a href='delete.php?id=$id' type='button' class='btn btn-outline-danger'>Deletar</button>
-                        </td>
-                        </tr>
-                            ";
-                        }
-                        
-                    }
-                    ?>
+    foreach($result_status as $row_status){
+
+        extract($row_status);
+        $dataBr = "Data: " .date('d/m/Y H:i:s', strtotime($data)) . " <br>";
+
+      
 
 
+        echo "
+        <tr>
+        <th scope='row'>{$id}</th>
+        <td>{$dataBr}</td>
+        <td>{$tarefa}</td>
+        <td>{$status}</td>
+        <td>
+        
+        <a href='view.php?id=$id' type='button' class='btn btn-outline-primary'>Visualizar</a>
+        <a href='edit.php?id=$id' type='button' class='btn btn-outline-success'>Editar</a>
+        <a href='delete1.php?id=$id' type='button' class='btn btn-outline-danger'>Deletar</button>
+    </td>
+    </tr>
+        ";
+        
+    }
+    ?>
             </tbody>
         </table>
 
 
 
     </div>
+
+
 
 </body>
 

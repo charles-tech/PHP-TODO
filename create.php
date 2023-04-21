@@ -48,10 +48,7 @@ ob_start();
 
 
                     </ul>
-                    <form class="d-flex mt-3" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -62,7 +59,6 @@ ob_start();
 <body>
 
 
-    <h1>Cadastrar To-Do</h1>
     <br>
 
     <?php
@@ -90,15 +86,23 @@ if(!empty($formData['SendTodo'])){
 
     ?>
 
-    <form name="CreateTodo" method="POST" action="">
-        <label>Data: </label>
-        <input class="calendario" type="datetime-local" name="data" required /><br><br>
+    <div class="container">
+        <h1>Cadastrar To-Do</h1><br>
 
-        <label>Tarefa </label>
-        <input class="entrada" type="text" name="tarefa" placeholder="Escreca a sua Tarefa" required /><br><br>
 
-        <input type="submit" value="Cadastrar" name="SendTodo" />
-    </form>
+
+
+        <form name="CreateTodo" method="POST" action="">
+            <label>Data: </label>
+            <input class=" form-control" type="datetime-local" name="data" required /><br><br>
+
+            <label>Tarefa </label>
+            <input class=" form-control" type="text" name="tarefa" placeholder="Escreva a sua Tarefa"
+                required /><br><br>
+
+            <input type="submit" value="Cadastrar" name="SendTodo" />
+        </form>
+    </div>
 </body>
 
 </html>
